@@ -1,0 +1,11 @@
+{
+	"name": "php-script-for-db",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"run": "sudo docker run -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=<login@pass>\" -p 1433:1433 --name mssql --hostname mssql -d mcr.microsoft.com/mssql/server:2022-latest"
+	},
+	"author": "qpyracuk",
+	"license": "ISC"
+}
