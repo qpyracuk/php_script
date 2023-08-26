@@ -46,10 +46,10 @@ services:
         container_name: emulator
         hostname: emulator
         build:
-            context: ./environment/encripted-server
+            context: ./environment/encrypted-server
         volumes:
-            - ./environment/encripted-server:/app
-            - ./environment/encripted-server/code:/app/code
+            - ./environment/encrypted-server:/app
+            - ./environment/encrypted-server/code:/app/code
         ports:
             - 8050:8050
         networks:
@@ -58,4 +58,4 @@ services:
 networks:
     app:
         driver: bridge
-# docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Yapillac1" -p 1433:1433 --name db --hostname db mcr.microsoft.com/mssql/server:2022-latest
+

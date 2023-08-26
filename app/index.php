@@ -8,6 +8,7 @@ require("./handlers/db.php");
 /** Запросы к серверу */
 require("./handlers/request.php");
 
+// Получение всех строк из исходной таблицы, где unwrap = 0
 $raws = GetRaws();
 foreach ($raws as $key => $value) {
     $id = $value["id"];
@@ -15,14 +16,8 @@ foreach ($raws as $key => $value) {
     $campaign = $value["campaign"];
     $token = $value["token"];
     $encryptedKey = SendRequest(URL, new Reqest($campaign, $token), METHOD);
-    echo ($encryptedKey);
-    if (!!$encryptedKey){
-        InsertRecord($id, $campaign, $puid, $token, $encryptedKey);
-    }
-    else{
-        echo "Не удалось получить ответ от сервера";
-    }
-    
+    if (!!$encryptedKey) InsertRecord($id, $campaign, $puid, $token, $encryptedKey);  
+    else die ("Не удалось получить ответ от сервера<br>");
 }
 echo "Процесс завершён";
 ?>

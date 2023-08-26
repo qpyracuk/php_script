@@ -12,7 +12,7 @@ class Reqest {
      */
     public function __construct($campaignId, $token){
         $this->campaignId = $campaignId;
-        $this->tokens = Array($token);
+        $this->tokens = array($token);
     } 
 }
 ?>

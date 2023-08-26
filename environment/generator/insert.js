@@ -22,7 +22,7 @@ const connect = async () => {
 	try {
 		await mssql.connect("Server=0.0.0.0,1433;Database=master;User Id=SA;Password=Yapillac1;Encrypt=false");
 		console.log("Установлено соединение с БД");
-		await insertDB(10000);
+		await insertDB(100);
 		console.log("Данные успешно занесены");
 	} catch (err) {
 		console.error(err);
