@@ -20,11 +20,6 @@ define("RES_TABLE","res");
 /** ЗАПРОС К СЕРВЕРУ intercollectcontact.ru*/
 /** Метод запроса */
 define("METHOD","POST");
-/** URL-адрес запроса (раскомментировать) */
-// define("URL","https://intercollectcontact.ru/pra/usersByTokens");
-
-
-/** !!! ВРЕМЕННЫЕ СЕРВЕР ЭМУЛИРУЮЩИЙ РАБОТУ intercollectcontact (После тестирования удалить) */
-define("URL","http://emulator:8050");
-
+/** URL-адрес запроса */
+define("URL","https://intercollectcontact.ru/pra/usersByTokens");
 ?>

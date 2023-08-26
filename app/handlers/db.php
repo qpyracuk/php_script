@@ -41,6 +41,7 @@ function GetRaws(){
         sqlsrv_free_stmt($response);
         sqlsrv_close($connect);
         if ($counter <= 0) die("В таблице отсутствуют строки с unwrap = 0<br>");
+        echo "Записей извлечено: $counter<br>";
     }
     catch(Exception $e){
         die("Произошла ошибка, при попытке получения информации из исходной таблицы<br>");

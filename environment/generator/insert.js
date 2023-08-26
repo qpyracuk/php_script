@@ -1,12 +1,18 @@
 import mssql from "mssql";
+import fs from 'fs';
+let data = [
+	fs.readFileSync("./environment/generator/campaign.txt").toString().split("\n"),
+	fs.readFileSync("./environment/generator/puid.txt").toString().split("\n"),
+	fs.readFileSync("./environment/generator/token.txt").toString().split("\n"),
+];
 
-const chrs = "abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789";
-function getRandomText(number) {
-	let str = "'";
-	for (let i = 0; i < number; i++) {
-		str += chrs[Math.floor(Math.random() * chrs.length)];
+async function insertDB() {
+	for (let i = 0; i < data[0].length; i++) {
+		console.log(`Добавлена строка: ${i + 1}`);
+        let values = `'${data[0][i]}', '${data[1][i]}', '${data[2][i]}', ${getRandomDate()}, ${getRandomBool()}`;
+		let query = `INSERT INTO src (campaign, puid, token, date, unwrap) VALUES (${values})`;
+		await mssql.query(query);
 	}
-	return (str += "'");
 }
 
 function getRandomDate() {
@@ -22,20 +28,13 @@ const connect = async () => {
 	try {
 		await mssql.connect("Server=0.0.0.0,1433;Database=master;User Id=SA;Password=Yapillac1;Encrypt=false");
 		console.log("Установлено соединение с БД");
-		await insertDB(100);
+		await insertDB();
 		console.log("Данные успешно занесены");
 	} catch (err) {
 		console.error(err);
 	}
 };
 
-async function insertDB(number) {
-	for (let i = 0; i < number; i++) {
-		console.log(`Добавлена строка: ${i + 1}`);
-		let values = `${getRandomText(99)}, ${getRandomText(99)}, ${getRandomText(99)}, ${getRandomDate()}, ${getRandomBool()}`;
-		let query = `INSERT INTO src (campaign, puid, token, date, unwrap) VALUES (${values})`;
-		await mssql.query(query);
-	}
-}
+
 
 await connect();

@@ -19,5 +19,5 @@ foreach ($raws as $key => $value) {
     if (!!$encryptedKey) InsertRecord($id, $campaign, $puid, $token, $encryptedKey);  
     else die ("Не удалось получить ответ от сервера<br>");
 }
-echo "Процесс завершён";
+echo "Процесс завершён<br>";
 ?>
