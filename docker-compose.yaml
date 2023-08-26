@@ -1,13 +1,61 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  mssql:
-    container_name: mssql
-    hostname: mssql
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=<login@password>
-    ports:
-      - 1433:1433
 
+    # КОНТЕЙНЕР С SQL-SERVER
+    mssql:
+        container_name: mssql
+        hostname: mssql
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+            ACCEPT_EULA: Y
+            MSSQL_SA_PASSWORD: Yapillac1
+        ports:
+            - 1433:1433
+        networks:
+            - app
+
+    # PHP-СЕРВЕР
+    server:
+        container_name: server
+        hostname: server
+        image: namoshek/php-mssql:latest
+        volumes:
+            - ./app:/app
+        ports:
+            - 8080:80
+        command: "php -S 0.0.0.0:80 -t /app"
+        networks:
+            - app
+
+    # UI для управления БД
+    ui:
+        container_name: ui
+        hostname: ui
+        image: sqlpad/sqlpad
+        ports:
+            - 8040:3000
+        environment:
+            - SQLPAD_ADMIN=qpyracuk@gmail.com
+            - SQLPAD_ADMIN_PASSWORD=Yapillac1
+        networks:
+            - app
+
+    # ЭМУЛЯТОР ОТВЕТА
+    emulator:
+        container_name: emulator
+        hostname: emulator
+        build:
+            context: ./environment/encripted-server
+        volumes:
+            - ./environment/encripted-server:/app
+            - ./environment/encripted-server/code:/app/code
+        ports:
+            - 8050:8050
+        networks:
+            - app
+
+networks:
+    app:
+        driver: bridge
+# docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Yapillac1" -p 1433:1433 --name db --hostname db mcr.microsoft.com/mssql/server:2022-latest

@@ -2,10 +2,14 @@
 	"name": "php-script-for-db",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"type": "module",
+	"main": "./environment/generator/insert.js",
 	"scripts": {
-		"run": "sudo docker run -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=<login@pass>\" -p 1433:1433 --name mssql --hostname mssql -d mcr.microsoft.com/mssql/server:2022-latest"
+		"insert": "node ./environment/generator/insert.js"
 	},
-	"author": "qpyracuk",
-	"license": "ISC"
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"mssql": "^9.1.3"
+	}
 }
